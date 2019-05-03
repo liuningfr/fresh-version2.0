@@ -1541,6 +1541,12 @@ antd@^3.16.6:
     shallowequal "^1.1.0"
     warning "~4.0.2"
 
+antx@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/antx/download/antx-0.2.0.tgz#5c44003235bd2183d4644ebd66da79182abcf744"
+  dependencies:
+    "@babel/runtime" "^7.4.3"
+
 any-observable@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npm.taobao.org/any-observable/download/any-observable-0.3.0.tgz#af933475e5806a67d0d7df090dd5e8bef65d119b"

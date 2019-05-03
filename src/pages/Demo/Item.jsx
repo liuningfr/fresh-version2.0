@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withStore } from 'retalk';
-import { Input, Select, AutoComplete, Transfer, Cascader } from '@/components/AntPlus';
+import { Input, Select, AutoComplete, Transfer, Cascader } from 'antx';
 import ItemPage from '@/components/ItemPage';
 
 class Item extends Component {
@@ -9,7 +9,7 @@ class Item extends Component {
     super(props);
     const { pageType } = props;
     this.msg = pageType === 'view' ? '' : 'full';
-    this.statusList = [{ id: 1, value: '启用' }, { id: 0, value: '禁用' }];
+    this.statusList = [{ value: 1, label: '启用' }, { value: 0, label: '禁用' }];
   }
   componentDidMount() {
     // 在此处请求页面需要的额外数据（除 `getItem` 之外的请求）
@@ -54,7 +54,7 @@ class Item extends Component {
           id="transfer"
           rules={['required', 'array']}
           search
-          msg={this.msg}
+          searchMsg={this.msg}
           data={[{ key: 123, title: '第一个' }, { key: 456, title: '第二个' }]}
           initialValue={[123]}
         />

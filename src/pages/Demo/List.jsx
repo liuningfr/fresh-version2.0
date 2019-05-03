@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { Switch, Divider } from 'antd';
 import { connect } from 'react-redux';
 import { withStore } from 'retalk';
-import { Input, Select } from '@/components/AntPlus';
+import { Input, Select } from 'antx';
 import ListPage from '@/components/ListPage';
 
 class List extends Component {
   constructor(props) {
     super(props);
     this.statusList = [
-      { id: null, value: '全部' },
-      { id: 1, value: '启用' },
-      { id: 0, value: '禁用' },
+      { value: null, label: '全部' },
+      { value: 1, label: '启用' },
+      { value: 0, label: '禁用' },
     ];
     this.state = {
       activeRow: null,
@@ -66,12 +66,12 @@ class List extends Component {
         dataIndex: 'status',
         width: 100,
         render: (text, row, index) => {
-          const obj = this.statusList.find(({ id }) => id === text);
+          const obj = this.statusList.find(({ value }) => value === text);
           return (
             <Switch
               checkedChildren="已启用"
               unCheckedChildren="已禁用"
-              checked={obj.id === 1}
+              checked={obj.value === 1}
               loading={activeRow === index && loading.toggleStatus}
               onChange={(checked) => this.onSwitch(checked, row, index)}
             />
