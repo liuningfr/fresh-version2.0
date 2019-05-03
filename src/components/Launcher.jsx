@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
-import sftc from '@/basic/assets/logo.png';
+import mainLogo from '@/basic/assets/logo.png';
 import styles from './Launcher.scss';
 
 const renderMap = {
@@ -24,7 +24,7 @@ const renderMap = {
     showFooter: () => <p>呀，页面不存在！</p>,
   },
   home: {
-    logo: <img src={sftc} alt="SFTC" />,
+    logo: <img src={mainLogo} alt="SFTC" />,
     title: 'Fresh',
   },
 };
