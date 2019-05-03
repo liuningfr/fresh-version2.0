@@ -1,0 +1,196 @@
+$primary-color: rgba(#000, 0.8);
+$bg: #f5f5f5;
+
+$header-height: 80px;
+$side-x: 60px;
+
+$side-bar-width: 260px;
+$logo-width: 160px;
+$logo-height: $logo-width * 1 / 2.7;
+
+$menu-item-height: 50px;
+$menu-item-x: ($side-bar-width - ($logo-width - 10px)) / 2;
+$menu-item-size: 15px;
+$menu-item-color: #666;
+$menu-item-active-color: #000;
+$menu-item-hover-bg: #fafafa;
+
+.open-loading,
+.login-wrapper,
+.layout {
+  min-height: 100vh;
+  background: $bg;
+}
+.open-loading,
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
+.open-loading {
+  &::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: rgba(#000, 0.02);
+    border-radius: 50%;
+    animation: rotate 1s infinite;
+    @keyframes rotate {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(20);
+      }
+    }
+  }
+}
+.login-wrapper {
+  > [class^='loading'] {
+    width: 400px;
+    height: 450px;
+    overflow: hidden;
+  }
+}
+.layout {
+  :global {
+    .ant-layout-sider {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      flex: 0 0 $side-bar-width !important;
+      max-width: $side-bar-width !important;
+      min-width: $side-bar-width !important;
+      width: $side-bar-width !important;
+      background: #fff;
+      overflow-x: hidden;
+      overflow-y: auto;
+      .logo {
+        display: block;
+        height: 116px;
+        line-height: 116px;
+        font-size: 64px;
+        font-weight: 600;
+        padding-left: $menu-item-x;
+        padding-right: $menu-item-x;
+        text-align: center;
+        text-decoration: none;
+      }
+      .ant-menu {
+        background: transparent;
+        border-right: 0;
+        .ant-menu-item {
+          padding: 0;
+          background: transparent;
+        }
+        .ant-menu-item,
+        .ant-menu-submenu .ant-menu-submenu-title {
+          height: $menu-item-height;
+          margin-top: 0;
+          margin-bottom: 0;
+          line-height: $menu-item-height;
+        }
+        .ant-menu-item a,
+        .ant-menu-submenu .ant-menu-submenu-title {
+          padding: 0 $menu-item-x;
+          color: $menu-item-color;
+          font-size: $menu-item-size;
+          line-height: $menu-item-height;
+          &:hover {
+            background: $menu-item-hover-bg;
+          }
+          i:first-child {
+            margin-right: 18px;
+            font-size: 1.2em;
+            font-weight: 700;
+            opacity: 0.8;
+          }
+        }
+        .ant-menu-submenu .ant-menu-submenu-title i:last-child {
+          right: $menu-item-x;
+          &::before,
+          &::after {
+            background: $menu-item-color;
+          }
+        }
+        // active
+        .ant-menu-item a.active,
+        .ant-menu-submenu[active] .ant-menu-submenu-title {
+          color: $menu-item-active-color;
+          font-weight: 500;
+          i:first-child {
+            opacity: 1;
+          }
+        }
+        .ant-menu-submenu[active] .ant-menu-submenu-title i:last-child {
+          &::before,
+          &::after {
+            background: $menu-item-active-color;
+          }
+        }
+      }
+    }
+    .ant-layout-header {
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: $side-bar-width;
+      right: 0;
+      height: $header-height;
+      padding-left: $side-x;
+      padding-right: $side-x;
+      line-height: $header-height;
+      background: $bg;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > i {
+        margin-left: auto;
+        margin-right: 30px;
+      }
+      + .ant-layout-content {
+        position: relative;
+        margin-top: $header-height;
+        margin-left: $side-bar-width;
+        padding-left: $side-x;
+        padding-right: $side-x;
+        padding-bottom: 30px;
+      }
+    }
+  }
+}
+:global {
+  .ant-menu-submenu-popup {
+    .ant-menu-sub {
+      position: relative;
+      margin-left: 3px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(#000, 0.15);
+      .ant-menu-item {
+        height: $menu-item-height;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+        line-height: $menu-item-height;
+        background: transparent;
+        a {
+          padding-left: $menu-item-x;
+          padding-right: $menu-item-x;
+          color: $menu-item-color;
+          font-size: $menu-item-size;
+          &:hover {
+            background: $menu-item-hover-bg;
+          }
+          &.active {
+            color: $menu-item-active-color;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

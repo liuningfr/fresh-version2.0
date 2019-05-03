@@ -1,0 +1,41 @@
+$primary-color: rgba(#000, 0.8);
+
+.path {
+  :global {
+    span {
+      > .ant-breadcrumb-link {
+        &,
+        + .ant-breadcrumb-separator,
+        a {
+          color: rgba(#000, 0.8);
+        }
+        + .ant-breadcrumb-separator {
+          display: inline-block;
+          transform: translateY(-1px);
+        }
+        a:hover {
+          color: $primary-color;
+        }
+      }
+      &:first-child:not(.ant-breadcrumb-link) {
+        .ant-breadcrumb-link {
+          display: inline-block;
+          margin-right: 1px;
+          color: rgba(#000, 0.8);
+          font-size: 30px;
+          font-weight: 700;
+          transform: translateY(-1px);
+          a {
+            color: inherit;
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+      }
+      &:last-child .ant-breadcrumb-separator {
+        display: none;
+      }
+    }
+  }
+}

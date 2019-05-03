@@ -1,0 +1,54 @@
+.export-btn {
+  color: rgba(#000, 0.3);
+  font-size: 26px;
+  cursor: pointer;
+  &.red-dot {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 5px;
+      height: 5px;
+      background: #f5222d;
+      border-radius: 50%;
+    }
+  }
+}
+.export-popover {
+  :global {
+    .ant-popover-inner-content {
+      max-height: 400px;
+      padding: 10px 20px;
+      overflow-y: auto;
+      .ant-table {
+        width: 400px;
+        .ant-table-tbody {
+          tr {
+            &:last-child td {
+              border-bottom: 0;
+            }
+            td {
+              padding: 10px 0;
+            }
+          }
+        }
+        .ant-table-placeholder {
+          border-bottom: 0;
+        }
+      }
+      .ant-alert {
+        padding: 2px 0 2px 24px;
+        background: transparent;
+        border: 0;
+        .ant-alert-icon {
+          top: 50%;
+          left: 0;
+          font-size: 15px;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}

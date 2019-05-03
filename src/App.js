@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// localization
+import { LocaleProvider } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
+// router
+import { BrowserRouter } from 'react-router-dom';
+// store
+import { Provider } from 'react-redux';
+import { createStore } from '@/store';
+import basic from './basic/model';
+// components
+import Layout from './basic/Layout';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const store = createStore({ basic });
+
+const App = () => (
+  <LocaleProvider locale={zhCN}>
+    <BrowserRouter basename="/manage">
+      <Provider store={store}>
+        <Layout store={store} />
+      </Provider>
+    </BrowserRouter>
+  </LocaleProvider>
+);
 
 export default App;

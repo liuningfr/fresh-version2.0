@@ -1,0 +1,11 @@
+.listPage {
+  > header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  > footer {
+    display: flex;
+    margin-top: 24px;
+  }
+}

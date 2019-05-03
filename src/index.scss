@@ -1,0 +1,330 @@
+// 滚动条
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(#000, 0.15);
+  border-radius: 3px;
+}
+$error: #f5222d;
+$blue: #4a8cfb;
+
+body {
+  :global {
+    // 1. Ant Design
+    .ant-table {
+      background: #fff;
+      .ant-table-thead > tr > th {
+        background: transparent;
+        border-bottom-color: #eee;
+      }
+      .ant-table-tbody > tr > td {
+        border-bottom-color: #eee;
+        a {
+          color: $blue;
+          &:hover {
+            border-bottom: 1px solid $blue;
+          }
+        }
+      }
+      .ant-table-placeholder {
+        border-bottom: 0;
+        background: transparent;
+      }
+      .ant-switch {
+        transform: scale(0.95);
+        transform-origin: 0 50%;
+        &.ant-switch-checked {
+          background: $blue;
+        }
+      }
+    }
+    .ant-form {
+      .ant-form-item {
+        .ant-form-item-label,
+        .ant-form-item-control-wrapper .ant-form-item-control {
+          line-height: 36px;
+        }
+      }
+    }
+    .ant-popover {
+      .ant-popover-inner {
+        box-shadow: 0 2px 8px rgba(#000, 0.15);
+      }
+    }
+    .ant-checkbox {
+      &.ant-checkbox-checked .ant-checkbox-inner,
+      &.ant-checkbox-indeterminate .ant-checkbox-inner {
+        background: $blue;
+        border-color: $blue;
+      }
+    }
+    .ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
+      color: #fff;
+    }
+    .ant-btn {
+      line-height: 1;
+      &:not(.ant-btn-sm) {
+        min-width: 80px;
+      }
+    }
+    // Form 错误提示
+    .ant-form-item {
+      &.ant-form-item-with-help {
+        margin-bottom: 24px;
+        .ant-transfer-list {
+          border-color: $error;
+        }
+        .ant-input.ant-transfer-list-search {
+          border-color: #d9d9d9;
+          box-shadow: none;
+        }
+      }
+      .ant-form-explain,
+      .ant-form-split {
+        position: absolute;
+        top: -32px;
+        left: 0;
+        padding: 3px 8px;
+        color: #fff !important;
+        font-size: 12px;
+        line-height: 20px;
+        background: $error;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(#000, 0.3);
+        &::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          bottom: -4px;
+          border-top: 4px solid $error;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          transform: translateX(-50%);
+        }
+      }
+    }
+
+    // 2. 自定义通用 class
+    img {
+      max-width: 100%;
+    }
+    // toolbar
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      padding: 24px 12px 8px;
+      background: #fff;
+      .ant-form-item,
+      footer {
+        width: calc(1 / 3 * 100%);
+        margin-bottom: 16px;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+      .ant-form-item {
+        display: flex;
+        margin-right: 0;
+        .ant-form-item-label {
+          width: 30%;
+        }
+        .ant-form-item-control-wrapper {
+          width: 70%;
+          .ant-calendar-picker {
+            width: 100%;
+          }
+        }
+      }
+      footer {
+        margin-left: auto;
+        text-align: right;
+        a,
+        .ant-btn {
+          margin-left: 16px;
+        }
+      }
+    }
+    // item-page
+    $label-width: 10vw;
+    $field-width: 20vw;
+    $border-inside: #f2f2f2;
+    .item-page {
+      padding: 32px 24px 0;
+      background: #fff;
+      &.view {
+        .ant-form-item-required::before {
+          display: none;
+        }
+      }
+      @for $i from 2 through 4 {
+        &:global(.form-with-#{$i}-cols) {
+          display: flex;
+          flex-wrap: wrap;
+          > div {
+            width: 100% / $i;
+          }
+        }
+      }
+      > h1,
+      > h2,
+      > h4,
+      > h5,
+      > h6 {
+        width: 100%;
+        &:after {
+          content: '请使用 `<h3>` 标签';
+          margin-left: 10px;
+          color: $error;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+      > h3 {
+        width: 100%;
+        margin-bottom: 24px;
+        padding-bottom: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        border-bottom: 1px solid $border-inside;
+        &:not(:first-of-type) {
+          margin-top: 24px;
+        }
+      }
+      > footer {
+        width: calc(100% + 24px * 2);
+        margin-top: 24px * 2;
+        margin-left: -24px;
+        margin-right: -24px;
+        padding: 20px 24px;
+        border-top: 1px solid #eee;
+        > :first-child {
+          margin-left: $label-width;
+        }
+        > button,
+        > a {
+          margin-right: 16px;
+        }
+      }
+      :global {
+        .ant-form-item {
+          display: flex;
+          .ant-form-item-label {
+            width: $label-width;
+          }
+          .ant-form-item-control-wrapper {
+            width: calc(100% - #{$label-width});
+            .ant-input-group-wrapper,
+            .ant-input-affix-wrapper,
+            .ant-input:not(.ant-transfer-list-search):not(textarea),
+            .ant-input-number,
+            .ant-select,
+            .ant-cascader-picker {
+              width: $field-width;
+            }
+            textarea.ant-input {
+              width: $field-width * 2;
+            }
+            .ant-input-group-wrapper .ant-input-group-addon {
+              border-left: 1px solid #d9d9d9;
+              transform: translateX(-36px);
+            }
+            .ant-form-item-control {
+              .ant-input[disabled],
+              .ant-input-disabled {
+                padding-left: 0;
+                padding-right: 0;
+                color: inherit;
+                background: transparent;
+                border: 0;
+                box-shadow: none;
+                cursor: auto;
+                .ant-calendar-picker-icon {
+                  display: none;
+                }
+              }
+              .ant-input-number-disabled,
+              .ant-input-number-input[disabled] {
+                padding-left: 0;
+                padding-right: 0;
+                color: inherit;
+                background: transparent;
+                border: 0;
+                cursor: auto;
+              }
+              textarea[disabled] {
+                resize: none;
+              }
+              .ant-select.ant-select-disabled {
+                color: inherit;
+                .ant-select-selection {
+                  background: transparent;
+                  border: 0;
+                  .ant-select-selection__rendered {
+                    margin-left: 0;
+                    margin-right: 0;
+                    cursor: auto;
+                  }
+                  .ant-select-arrow {
+                    display: none;
+                  }
+                }
+                .ant-select-selection--multiple {
+                  .ant-select-selection__choice {
+                    color: inherit;
+                  }
+                }
+              }
+              .ant-cascader-picker-disabled {
+                background: transparent;
+                color: inherit;
+                .ant-cascader-picker-label {
+                  padding: 0;
+                }
+                .ant-cascader-picker-arrow {
+                  display: none;
+                }
+              }
+              .ant-calendar-range-picker-input[disabled] {
+                cursor: default;
+              }
+              .ant-calendar-picker-input.ant-input-disabled + .ant-calendar-picker-icon {
+                display: none;
+              }
+              .ant-switch-disabled {
+                margin: 0;
+                border: none;
+                background: transparent;
+                opacity: 1;
+                .ant-switch-inner {
+                  margin: 0;
+                  transform: none;
+                  color: inherit;
+                  font-size: inherit;
+                }
+                &:after {
+                  display: none;
+                }
+              }
+              .ant-upload-disabled + .ant-upload-list {
+                .ant-upload-list-item:hover {
+                  .ant-upload-list-item-info {
+                    background: transparent;
+                  }
+                  .anticon-cross {
+                    display: none;
+                    opacity: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
