@@ -42,64 +42,60 @@ const List = ({
     toggleStatus(+checked, row, index);
   };
   // Form
-  const fields = () => {
-    return (
-      <>
-        <Input label="Demo 编码" id="demo_id" rules={['number']} msg="short" />
-        <Input label="Demo 名称" id="demo_name" rules={['string']} msg="short" />
-        <Select
-          label="分类"
-          id="type"
-          rules={['number']}
-          msg="short"
-          search
-          data={[{ type_id: null, type_name: '全部' }, ...typeList]}
-          keys={['type_id', 'type_name']}
-        />
-        <Select label="状态" id="status" rules={['number']} msg="short" data={statusList} />
-      </>
-    );
-  };
+  const fields = () => (
+    <>
+      <Input label="Demo 编码" id="demo_id" rules={['number']} msg="short" />
+      <Input label="Demo 名称" id="demo_name" rules={['string']} msg="short" />
+      <Select
+        label="分类"
+        id="type"
+        rules={['number']}
+        msg="short"
+        search
+        data={[{ type_id: null, type_name: '全部' }, ...typeList]}
+        keys={['type_id', 'type_name']}
+      />
+      <Select label="状态" id="status" rules={['number']} msg="short" data={statusList} />
+    </>
+  );
   // Table
-  const columns = () => {
-    return [
-      { title: 'Demo 编码', dataIndex: 'demo_id', width: 100 },
-      { title: 'Demo 名称', dataIndex: 'demo_name', width: 200 },
-      { title: '分类', dataIndex: 'type', width: 100 },
-      {
-        title: '状态',
-        dataIndex: 'status',
-        width: 100,
-        render: (text, row, index) => {
-          const obj = statusList.find(({ value }) => value === text);
-          return (
-            <Switch
-              checkedChildren="已启用"
-              unCheckedChildren="已禁用"
-              checked={obj.value === 1}
-              loading={activeRow === index && loading.toggleStatus}
-              onChange={(checked) => onSwitch(checked, row, index)}
-            />
-          );
-        },
+  const columns = () => [
+    { title: 'Demo 编码', dataIndex: 'demo_id', width: 100 },
+    { title: 'Demo 名称', dataIndex: 'demo_name', width: 200 },
+    { title: '分类', dataIndex: 'type', width: 100 },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      width: 100,
+      render: (text, row, index) => {
+        const obj = statusList.find(({ value }) => value === text);
+        return (
+          <Switch
+            checkedChildren="已启用"
+            unCheckedChildren="已禁用"
+            checked={obj.value === 1}
+            loading={activeRow === index && loading.toggleStatus}
+            onChange={(checked) => onSwitch(checked, row, index)}
+          />
+        );
       },
-      {
-        title: '操作',
-        render: (text, { demo_id }) => (
-          <>
-            <Link to={`${pathname}/view/${demo_id}`}>查看</Link>
-            {power.ctrl && (
-              <>
-                <Divider type="vertical" />
-                <Link to={`${pathname}/edit/${demo_id}`}>编辑</Link>
-              </>
-            )}
-          </>
-        ),
-        width: 100,
-      },
-    ];
-  };
+    },
+    {
+      title: '操作',
+      render: (text, { demo_id }) => (
+        <>
+          <Link to={`${pathname}/view/${demo_id}`}>查看</Link>
+          {power.ctrl && (
+            <>
+              <Divider type="vertical" />
+              <Link to={`${pathname}/edit/${demo_id}`}>编辑</Link>
+            </>
+          )}
+        </>
+      ),
+      width: 100,
+    },
+  ];
 
   return (
     <ListPage
