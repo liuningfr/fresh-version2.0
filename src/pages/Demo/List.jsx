@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Switch, Divider } from 'antd';
 import { connect } from 'react-redux';
@@ -6,34 +6,45 @@ import { withStore } from 'retalk';
 import { Input, Select } from 'antx';
 import ListPage from '@/components/ListPage';
 
-class List extends Component {
-  constructor(props) {
-    super(props);
-    this.statusList = [
-      { value: null, label: '全部' },
-      { value: 1, label: '启用' },
-      { value: 0, label: '禁用' },
-    ];
-    this.state = {
-      activeRow: null,
-    };
-  }
-  componentDidMount() {
+const List = ({
+  power,
+  location: { pathname },
+  history,
+  btnAdd,
+  loading,
+  form,
+  queryParams,
+  onQueryReset,
+  onQuery,
+  onExport, // form
+  getList,
+  listData,
+  listTotal,
+  onNav, // table
+  getTypeList,
+  toggleStatus,
+  typeList,
+}) => {
+  const [activeRow, setActiveRow] = useState(null);
+  const statusList = [
+    { value: null, label: '全部' },
+    { value: 1, label: '启用' },
+    { value: 0, label: '禁用' },
+  ];
+  useEffect(() => {
     // 在此处请求页面需要的额外数据（除 `getList` 之外的请求）
-    const { getTypeList } = this.props;
     getTypeList();
-  }
+  }, [getTypeList]);
+
   // table 切换 Switch 状态
-  onSwitch = (checked, row, index) => {
-    this.setState({ activeRow: index });
-    const { toggleStatus } = this.props;
+  const onSwitch = (checked, row, index) => {
+    setActiveRow(index);
     toggleStatus(+checked, row, index);
   };
   // Form
-  fields = () => {
-    const { typeList } = this.props;
+  const fields = () => {
     return (
-      <Fragment>
+      <>
         <Input label="Demo 编码" id="demo_id" rules={['number']} msg="short" />
         <Input label="Demo 名称" id="demo_name" rules={['string']} msg="short" />
         <Select
@@ -45,18 +56,12 @@ class List extends Component {
           data={[{ type_id: null, type_name: '全部' }, ...typeList]}
           keys={['type_id', 'type_name']}
         />
-        <Select label="状态" id="status" rules={['number']} msg="short" data={this.statusList} />
-      </Fragment>
+        <Select label="状态" id="status" rules={['number']} msg="short" data={statusList} />
+      </>
     );
   };
   // Table
-  columns = () => {
-    const {
-      power,
-      loading,
-      location: { pathname },
-    } = this.props;
-    const { activeRow } = this.state;
+  const columns = () => {
     return [
       { title: 'Demo 编码', dataIndex: 'demo_id', width: 100 },
       { title: 'Demo 名称', dataIndex: 'demo_name', width: 200 },
@@ -66,14 +71,14 @@ class List extends Component {
         dataIndex: 'status',
         width: 100,
         render: (text, row, index) => {
-          const obj = this.statusList.find(({ value }) => value === text);
+          const obj = statusList.find(({ value }) => value === text);
           return (
             <Switch
               checkedChildren="已启用"
               unCheckedChildren="已禁用"
               checked={obj.value === 1}
               loading={activeRow === index && loading.toggleStatus}
-              onChange={(checked) => this.onSwitch(checked, row, index)}
+              onChange={(checked) => onSwitch(checked, row, index)}
             />
           );
         },
@@ -81,60 +86,42 @@ class List extends Component {
       {
         title: '操作',
         render: (text, { demo_id }) => (
-          <Fragment>
+          <>
             <Link to={`${pathname}/view/${demo_id}`}>查看</Link>
             {power.ctrl && (
-              <Fragment>
+              <>
                 <Divider type="vertical" />
                 <Link to={`${pathname}/edit/${demo_id}`}>编辑</Link>
-              </Fragment>
+              </>
             )}
-          </Fragment>
+          </>
         ),
         width: 100,
       },
     ];
   };
 
-  render() {
-    const {
-      power,
-      history,
-      btnAdd,
-      loading,
-      form,
-      queryParams,
-      onQueryReset,
-      onQuery,
-      onExport, // form
-      getList,
-      listData,
-      listTotal,
-      onNav, // table
-    } = this.props;
-
-    return (
-      <ListPage
-        power={power} // 页面权限 { view: '查看(无权限时为 null)', ctrl: '操作(无权限时为 null)' }
-        history={history}
-        btnAdd={btnAdd} // 如果 config 中配置了 `新建` 页面，会有 `btnAdd`，需要传入 ListPage
-        form={form} // 表单必须
-        fields={this.fields()} // 表单域组件集合
-        params={queryParams} // 表单域数据
-        onReset={onQueryReset} // 重置筛选条件
-        onQuery={onQuery} // 查询
-        onExport={onExport} // 导出
-        exportLoading={loading.onExport} // 导出 loading
-        getList={getList} // 获取 table 数据
-        tableLoading={loading.getList} // 获取数据 loading
-        columns={this.columns()} // Table 组件 `columns`
-        rowKey="demo_id" // table row 唯一标识，不是 `id` 时传入
-        data={listData} // 列表数据
-        total={listTotal} // 列表条目总数
-        onNav={onNav} // 切换分页
-      />
-    );
-  }
-}
+  return (
+    <ListPage
+      power={power} // 页面权限 { view: '查看(无权限时为 null)', ctrl: '操作(无权限时为 null)' }
+      history={history}
+      btnAdd={btnAdd} // 如果 config 中配置了 `新建` 页面，会有 `btnAdd`，需要传入 ListPage
+      form={form} // 表单必须
+      fields={fields()} // 表单域组件集合
+      params={queryParams} // 表单域数据
+      onReset={onQueryReset} // 重置筛选条件
+      onQuery={onQuery} // 查询
+      onExport={onExport} // 导出
+      exportLoading={loading.onExport} // 导出 loading
+      getList={getList} // 获取 table 数据
+      tableLoading={loading.getList} // 获取数据 loading
+      columns={columns()} // Table 组件 `columns`
+      rowKey="demo_id" // table row 唯一标识，不是 `id` 时传入
+      data={listData} // 列表数据
+      total={listTotal} // 列表条目总数
+      onNav={onNav} // 切换分页
+    />
+  );
+};
 
 export default connect(...withStore('basic', 'demo'))(List);

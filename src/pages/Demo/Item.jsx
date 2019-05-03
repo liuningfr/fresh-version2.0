@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStore } from 'retalk';
 import { Input, Select, AutoComplete, Transfer, Cascader } from 'antx';
@@ -20,7 +20,7 @@ class Item extends Component {
   fields = () => {
     const { typeList } = this.props;
     return (
-      <Fragment>
+      <>
         <h3>基础信息</h3>
         <Input label="Demo 编码" id="demo_id" rules={['required', 'number']} msg={this.msg} />
         <Input label="Demo 名称" id="demo_name" rules={['required', 'string']} msg={this.msg} />
@@ -83,7 +83,7 @@ class Item extends Component {
           ]}
           initialValue={[123, 234]}
         />
-      </Fragment>
+      </>
     );
   };
 
