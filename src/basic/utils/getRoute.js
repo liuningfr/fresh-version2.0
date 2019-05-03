@@ -1,7 +1,7 @@
 import React from 'react';
 import loadable from 'loadable-components';
 import { connect } from 'react-redux';
-import { withStore } from '@/store';
+import { withStore } from 'retalk';
 import { Form } from 'antd';
 import Launcher from '@/components/Launcher';
 import { Route } from 'react-router-dom';

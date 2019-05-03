@@ -7,12 +7,13 @@ import 'moment/locale/zh-cn';
 import { BrowserRouter } from 'react-router-dom';
 // store
 import { Provider } from 'react-redux';
-import { createStore } from '@/store';
+import { createStore } from 'retalk';
 import basic from './basic/model';
+import demo from './pages/Demo/model';
 // components
 import Layout from './basic/Layout';
 
-const store = createStore({ basic });
+const store = createStore({ basic, demo });
 
 const App = () => (
   <LocaleProvider locale={zhCN}>

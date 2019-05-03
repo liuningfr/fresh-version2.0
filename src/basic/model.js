@@ -7,11 +7,6 @@ const model = {
     showDot: false, // 导出提示红点
     isTipVisible: false, // 导出提示信息
   },
-  reducers: {
-    setState(state, next) {
-      return { ...state, ...next };
-    },
-  },
   actions: {
     // 获取用户信息
     async getUserInfo() {

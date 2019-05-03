@@ -6,7 +6,7 @@ import Launcher from '@/components/Launcher';
 import config, { login } from '@/config';
 // utils
 import { connect } from 'react-redux';
-import { withStore } from '@/store';
+import { withStore } from 'retalk';
 import getRoute from './utils/getRoute';
 import useConfig from './utils/useConfig';
 // components

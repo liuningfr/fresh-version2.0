@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Switch, Divider } from 'antd';
+import { connect } from 'react-redux';
+import { withStore } from 'retalk';
 import { Input, Select } from '@/components/AntPlus';
 import ListPage from '@/components/ListPage';
 
@@ -135,4 +137,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export default connect(...withStore('demo'))(List);

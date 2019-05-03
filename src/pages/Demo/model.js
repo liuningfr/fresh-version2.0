@@ -19,11 +19,6 @@ const model = {
     // item
     itemData: {},
   },
-  reducers: {
-    setState(state, next) {
-      return { ...state, ...next };
-    },
-  },
   actions: {
     async getTypeList() {
       const data = await fetch(`${api}/get_type_list`);
