@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withStore } from 'retalk';
 import { Input, Select, AutoComplete, Transfer, Cascader } from '@/components/AntPlus';
 import ItemPage from '@/components/ItemPage';
 
@@ -121,4 +123,4 @@ class Item extends Component {
   }
 }
 
-export default Item;
+export default connect(...withStore('basic', 'demo'))(Item);

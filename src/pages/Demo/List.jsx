@@ -137,4 +137,4 @@ class List extends Component {
   }
 }
 
-export default connect(...withStore('demo'))(List);
+export default connect(...withStore('basic', 'demo'))(List);
